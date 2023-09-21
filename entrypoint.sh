@@ -1,6 +1,5 @@
 #!/bin/sh
 
-set -u
 ##################################################################
 urlencode() (
     i=1
@@ -16,6 +15,7 @@ urlencode() (
         i=$(( i + 1 ))
     done
 )
+set -u
 
 ##################################################################
 DEFAULT_POLL_TIMEOUT=10
@@ -25,17 +25,13 @@ POLL_TIMEOUT=${POLL_TIMEOUT:-$DEFAULT_POLL_TIMEOUT}
 #	echo ERROR: GITLAB_PASSWORD is not configured properly.
 #	exit 1
 #fi
+sh -c "git config --global --add safe.directory /github/workspace"
 
 git checkout "${GITHUB_REF:11}"
 
 branch="$(git symbolic-ref --short HEAD)"
 branch_uri="$(urlencode ${branch})"
 
-sh -c "ls -la $PWD; echo $PWD"
-sh -c "echo /github/workspace ; ls -la /github/workspace"
-sh -c "echo home is $HOME; ls -la $HOME"
-sh -c "git config --global --add safe.directory $PWD"
-sh -c "git config --global --add safe.directory /github/workspace"
 sh -c "git config --global credential.username $GITLAB_USERNAME"
 sh -c "git config --global core.askPass /cred-helper.sh"
 sh -c "git config --global credential.helper cache"
