@@ -31,7 +31,6 @@ git checkout "$GITHUB_REF_NAME"
 branch="$(git symbolic-ref --short HEAD)"
 branch_uri="$(urlencode ${branch})"
 
-sh -c "git config --global --add safe.directory $PWD"
 sh -c "git config --global credential.username $GITLAB_USERNAME"
 sh -c "git config --global core.askPass /cred-helper.sh"
 sh -c "git config --global credential.helper cache"
