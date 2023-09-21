@@ -21,10 +21,10 @@ urlencode() (
 DEFAULT_POLL_TIMEOUT=10
 POLL_TIMEOUT=${POLL_TIMEOUT:-$DEFAULT_POLL_TIMEOUT}
 
-if [ -z ${GITLAB_PASSWORD+x} ]; then
-	echo ERROR: GITLAB_PASSWORD is not configured properly.
-	exit 1
-fi
+#if [ -z ${GITLAB_PASSWORD+x} ]; then
+#	echo ERROR: GITLAB_PASSWORD is not configured properly.
+#	exit 1
+#fi
 
 git checkout "${GITHUB_REF:11}"
 
