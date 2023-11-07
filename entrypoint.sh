@@ -1,9 +1,10 @@
 #!/bin/sh
 
+set -u
 ##################################################################
 urlencode() (
     i=1
-    max_i=${#1}
+    max_i=${1:?"urlencode function is missing a parameter"}
     while test $i -le $max_i; do
         c="$(expr substr $1 $i 1)"
         case $c in
@@ -15,7 +16,6 @@ urlencode() (
         i=$(( i + 1 ))
     done
 )
-set -u
 
 ##################################################################
 DEFAULT_POLL_TIMEOUT=10
