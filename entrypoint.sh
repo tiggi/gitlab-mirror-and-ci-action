@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# NOTE: set -u here only applies for this shell, not the other shells started from this
+# script
 set -u
 ##################################################################
 urlencode() (
