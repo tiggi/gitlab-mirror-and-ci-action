@@ -23,7 +23,11 @@ urlencode() (
 DEFAULT_POLL_TIMEOUT=10
 POLL_TIMEOUT=${POLL_TIMEOUT:-$DEFAULT_POLL_TIMEOUT}
 
-echo Syncing ${GITHUB_REF_NAME:?"GITHUB_REF_NAME is missing"} using ${GITLAB_USERNAME:?"GITLAB_USERNAME is missing"} syncing to ${GITLAB_HOSTNAME:?"GITLAB_HOSTNAME is missing"} repoid ${GITLAB_PROJECT_ID:?"GITLAB_PROJECT_ID is missing"}
+echo Syncing ${GITHUB_REF_NAME:?"GITHUB_REF_NAME is missing"} using username ${GITLAB_USERNAME:?"GITLAB_USERNAME is missing"} syncing to ${GITLAB_HOSTNAME:?"GITLAB_HOSTNAME is missing"} repoid ${GITLAB_PROJECT_ID:?"GITLAB_PROJECT_ID is missing"}
+
+echo === .git/config
+cat .git/config
+echo === .git/config ends
 
 if [ -z ${GITLAB_PASSWORD:?"GITLAB_PASSWORD is missing"}} ]; then
 	echo ERROR: GITLAB_PASSWORD is not configured properly.
@@ -32,8 +36,6 @@ fi
 sh -c "git config --global --add safe.directory /github/workspace"
 git checkout "$GITHUB_REF_NAME"
 
-echo branch is ==============
-git symbolic-ref --short HEAD
 branch="$(git symbolic-ref --short HEAD)"
 branch_uri="$(urlencode ${branch})"
 
