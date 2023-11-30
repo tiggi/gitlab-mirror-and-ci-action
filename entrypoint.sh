@@ -4,7 +4,7 @@ set -u
 ##################################################################
 urlencode() (
     i=1
-    max_i=${#1}
+    max_i=${1:?"urlencode function is missing a parameter"}
     while test $i -le $max_i; do
         c="$(expr substr $1 $i 1)"
         case $c in
@@ -21,6 +21,10 @@ urlencode() (
 DEFAULT_POLL_TIMEOUT=10
 POLL_TIMEOUT=${POLL_TIMEOUT:-$DEFAULT_POLL_TIMEOUT}
 
+if [ -z ${GITLAB_PASSWORD+x} ]; then
+	echo ERROR: GITLAB_PASSWORD is not configured properly.
+	exit 1
+fi
 sh -c "git config --global --add safe.directory /github/workspace"
 git checkout "$GITHUB_REF_NAME"
 
