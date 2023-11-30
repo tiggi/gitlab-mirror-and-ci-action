@@ -32,6 +32,8 @@ fi
 sh -c "git config --global --add safe.directory /github/workspace"
 git checkout "$GITHUB_REF_NAME"
 
+echo branch is ==============
+git symbolic-ref --short HEAD
 branch="$(git symbolic-ref --short HEAD)"
 branch_uri="$(urlencode ${branch})"
 
